@@ -1,35 +1,39 @@
-"use client";
 import { Search } from "lucide-react";
-import { useRouter } from "next/navigation";
+import Image from "next/image";
 import React from "react";
 
-export default function Hero() {
-    
-    const router = useRouter();
-
+const Hero = ({ banner }) => {
+    console.log(banner);
     return (
-        <div className='relative h-screen w-full overflow-hidden'>
-            <video
-                className='absolute top-0 left-0 w-full h-full object-cover'
-                src='/travelcar.mp4'
-                autoPlay
-                loop
-                muted
-            />
-            <div className='absolute top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-20'>
-                <div className='text-center text-white flex flex-col gap-4 items-center'>
-                    <h1 className='text-4xl md:text-6xl font-bold mb-4'>
-                        Welcome to Our Travel Site
-                    </h1>
+        <>
+            <div className='relative h-screen w-screen overflow-hidden top-0'>
+                {banner.map((item, index) => (
+                    <div className='absolute h-screen w-screen' key={index}>
+                        <Image
+                            src={item.img}
+                            alt={item.alt}
+                            width={1920} // Set the width of the image
+                            height={1080} // Set the height of the image
+                            layout='responsive' // Ensure the image scales responsively
+                            objectFit='cover' // Adjust the image to cover the container
+                            className='absolute inset-0 w-full h-full'
+                        />
+                    </div>
+                ))}
+            </div>
+            <div className='flex justify-center flex-col items-center  gap-8 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 absolute text-6xl font-extrabold text-center text-white'>
+                <div>REFRESH, RELAX AND RECOVER</div>
+                <div className='flex text-lg  text-center rounded-4xl w-fit bg-white text-gray-500 px-4 py-2 gap-4 items-center'>
+                    <div className='rounded-full bg-black p-2'>
+                        {" "}
+                        <Search />{" "}
+                    </div>
 
-                    <button
-                        className='mt-6 px-6 py-3 bg-[#F78CA2] text-white font-medium rounded-full shadow-lg hover:bg-[#F9DEC9] transition-colors flex justify-center w-fit gap-4'
-                        onClick={() => router.push("/customize")}
-                    >
-                        Discover your next adventure <Search />
-                    </button>
+                    <div>Explore all the countries, cities</div>
                 </div>
             </div>
-        </div>
+        </>
     );
-}
+};
+
+export default Hero;
