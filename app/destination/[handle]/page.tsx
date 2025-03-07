@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { use } from "react";
+import DisplayCard from "./components/DisplayCard";
 
 export default function Destination({ params }) {
     const { handle } = use(params);
@@ -11,35 +12,20 @@ export default function Destination({ params }) {
     useEffect(() => {
         fetch(`https://json-data-1wm2.onrender.com/destination/${handle}`)
             .then((res) => res.json())
-            .then((data) => setTrips(data.trips));
-    }, [handle]);
+            .then((data) =>{console.log(data); setTrips(data.trips)});
 
+    }, [handle]);
+    console.log(trips);
     return (
-        <div>
+        <div className="mt-[10vh]">
             <h2>Trips to {handle}</h2>
-            {trips.map((trip) => (
-                <div
-                    key={trip["trip-name"]}
-                    className='border p-4 rounded-lg mb-4'
-                >
-                    <img
-                        src={trip.image}
-                        alt={trip["trip-name"]}
-                        className='w-full h-48 object-cover rounded-lg'
-                    />
-                    <h3 className='text-xl font-bold mt-2'>
-                        {trip["trip-name"]}
-                    </h3>
-                    <p>Price: ${trip.price}</p>
-                    <p>Duration: {trip.duration}</p>
-                    <h4 className='mt-2 font-semibold'>Amenities:</h4>
-                    <ul className='list-disc list-inside'>
-                        {trip.amenities.map((amenity, index) => (
-                            <li key={index}>{amenity}</li>
-                        ))}
-                    </ul>
-                </div>
-            ))}
+            {
+                trips.map((items,index)=>{ 
+                    return(
+                        <DisplayCard key={index} item={items} />
+                    )  
+                })
+            }
             <button
                 onClick={() => router.push("/get-in-touch")}
                 className='mt-4 px-4 py-2 bg-blue-500 text-white rounded'

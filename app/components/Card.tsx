@@ -1,31 +1,38 @@
 import { redirect } from "next/dist/server/api-utils";
 import Image from "next/image";
 import React from "react";
+import Link from "next/link";
 
-const Card = ({ item }) => {
+const Card = ({
+    item,
+}: {
+    item: { img: string; alt: string; handle: string; title: string };
+}) => {
     return (
-        <div
-            className='relative h-96 w-96 border shadow-sm hover:border-black/50 hover:bg-black hover:text-white overflow-hidden text-center'
-            onClick={() => redirect(`/destinations/${item.handle}`)}
+        <Link
+            className='relative h-96 w-96 border shadow-sm hover:border-black/50 hover:bg-black hover:text-white overflow-hidden text-center group'
+            href={`/destination/${item.handle}`}
         >
             <Image
                 src={item.img}
                 alt={item.alt}
-                width={450} // Set the width of the image
-                height={400} // Set the height of the image
-                layout='responsive' // Ensure the image scales responsively
-                objectFit='cover' // Adjust the image to cover the container
-                className=' inset-0 w-full h-3/5'
+                layout='fill' // Ensure it fills the parent container
+                objectFit='cover' // Cover the div without stretching
+                className='absolute inset-0'
             />
-            <div className='absolute top-4 left-4 bg-white/80 rounded-4xl px-2 py-1 text-xs'>
-                {" "}
+
+            {/* Title Overlay - Appears on Hover */}
+            <div className='relative z-10 h-full w-full opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
+                <div className='flex w-full h-full justify-center items-center bg-white/70'>
+                    <div className='text-4xl text-black'>{item.title}</div>
+                </div>
+            </div>
+
+            {/* Explore Button - Disappears on Hover */}
+            <div className='absolute top-4 left-4 z-10 bg-white/80 hover:bg-black/80 hover:text-white rounded-4xl px-2 py-1 text-xs opacity-100 group-hover:opacity-0 transition-opacity duration-300'>
                 Explore
             </div>
-            <div className='qbsolute bottom-4 left-4 text-3xl py-8'>
-                {" "}
-                {item.title}
-            </div>
-        </div>
+        </Link>
     );
 };
 
