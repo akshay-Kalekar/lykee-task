@@ -54,8 +54,8 @@ The project is deployed and accessible online.
 ## 📂 Installation & Setup
 1. Clone the repository:
    ```sh
-   git clone https://github.com/yourusername/travel-website.git
-   cd travel-website
+   git clone https://github.com/akshay-Kalekar/lykee-task.git
+   cd lykee-task
    ```
 2. Install dependencies:
    ```sh
