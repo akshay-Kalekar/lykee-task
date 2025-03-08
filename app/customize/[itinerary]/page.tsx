@@ -143,9 +143,7 @@ const Itinerary = ({ params }) => {
 
         if (currectQuestion < itineraryQuestionariData.length - 1) {
             setCurrectQuestion((prev) => prev + 1);
-        } else {
-            //CogratulatiosModal
-        }
+        } 
         setProgress(
             ((currectQuestion + 1) / itineraryQuestionariData.length) * 100
         );
@@ -167,18 +165,38 @@ const Itinerary = ({ params }) => {
                 <Progress value={progress} className='w-[60%] mt-8' />
                 <div className='flex flex-col gap-4'>
                     <div>
-                        <h2 className='text-2xl py-8'>
+                        <h2 className='text-lg md:text-2xl py-8 text-center'>
                             {itineraryQuestionariData[currectQuestion].Question}
                         </h2>
-                        <div className='flex gap-4'>
+                        <div className='flex flex-wrap justify-center gap-4'>
                             {itineraryQuestionariData[
                                 currectQuestion
                             ].Options.map((option, index) => (
-                                <Card
+                                <div
                                     key={index}
-                                    item={option}
-                                    onClick={() => handleCardClick(index)}
-                                />
+                                    className='flex flex-col items-center'
+                                >
+                                    {index % 2 === 0 && (
+                                        <div className='flex gap-4'>
+                                            {itineraryQuestionariData[
+                                                currectQuestion
+                                            ].Options.slice(
+                                                index,
+                                                index + 2
+                                            ).map((subOption, subIndex) => (
+                                                <Card
+                                                    key={subIndex}
+                                                    item={subOption}
+                                                    onClick={() =>
+                                                        handleCardClick(
+                                                            index + subIndex
+                                                        )
+                                                    }
+                                                />
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
                             ))}
                         </div>
                     </div>

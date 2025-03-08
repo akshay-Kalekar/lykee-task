@@ -38,7 +38,7 @@ export default function Destination({ params }) {
                 <h2>Top Trips to choose from . . . </h2>
                 <div className='flex flex-wrap gap-10 justify-center items-center'>
                     {trips.map((trip, index) => (
-                        <TripCard key={index} trip={trip} />
+                        <TripCard key={index} trip={trip} i={index} />
                     ))}
                     {trips.map((trip, index) => (
                         <TripCard key={index} trip={trip} />

@@ -16,7 +16,7 @@ export default function AnimatedSearchButton() {
         >
             <div
                 className={`
-          flex items-center gap-4 px-4 py-2 rounded-full text-lg w-full
+          flex items-center px-4 py-2 rounded-full text-xs md:text-lg w-full
           transition-all duration-500 ease-in-out
           ${
               isHovered
@@ -28,7 +28,7 @@ export default function AnimatedSearchButton() {
                 <div
                     className={`
           rounded-full p-2  bg-black text-white
-          transition-all duration-500 ease-in-out
+          transition-all duration-500 ease-in-out flex items-center
           ${isHovered ? " bg-white text-black" : ""}
         `}
                 >
@@ -38,8 +38,7 @@ export default function AnimatedSearchButton() {
                     />
                 </div>
 
-                <div className='relative w-full h-8 overflow-hidden'>
-                    {/* Default text that slides out to the left */}
+                <div className='relative w-full h-4 md:h-8 overflow-hidden'>
                     <div
                         className={`
             absolute w-full transition-all duration-500 ease-in-out

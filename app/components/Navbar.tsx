@@ -1,24 +1,27 @@
+import Link from "next/link";
 import React from "react";
 
 const Navbar = () => {
     return (
-        <div className='fixed top-0 left-0 w-full z-50 px-4 py-2 flex justify-between items-center text-white bg-black/50 backdrop-blur-md'>
+        <div className='fixed top-0 left-0 w-full z-50 px-4 py-2 flex justify-between text-xs md:text-lg items-center text-white bg-black/50 backdrop-blur-md'>
             {/* Logo */}
-            <div className='w-56'>LYKKE.Travel</div>
+            <Link href={"/"} className=' md:w-56'>
+                LYKKE.Travel
+            </Link>
 
             {/* Navigation Links */}
-            <div className='flex gap-16'>
-                <span>Home</span>
-                <span>Destinations</span>
-                <span>Contact Us</span>
+            <div className='hidden md:flex gap-16'>
+                <Link href='/'>Home</Link>
+                <Link href='/customize'>Plan Trip</Link>
+                <Link href='get-in-touch'>Contact Us</Link>
             </div>
 
             {/* Buttons */}
             <div className='flex gap-2'>
-                <button className='rounded-4xl border-2 px-6 py-2 hover:text-white hover:bg-black'>
-                    Log-in
+                <button className='rounded-4xl border-2 px-4 py-2 hover:text-white hover:bg-black'>
+                    Sign-in
                 </button>
-                <button className='rounded-4xl border-2 px-6 py-2 hover:text-white hover:bg-black'>
+                <button className='rounded-4xl border-2 px-4 py-2 hover:text-white hover:bg-black'>
                     Sign-up
                 </button>
             </div>
