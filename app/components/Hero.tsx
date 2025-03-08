@@ -2,7 +2,11 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import AnimatedSearchButton from "./AnimatedSearchButton";
 
-const Hero = ({ banner }) => {
+interface Banner {
+    img: string;
+    alt: string;
+}
+const Hero = ({banner}:{ banner: Banner[] }) => {
     const [currentSlide, setCurrentSlide] = useState(0);
 
     useEffect(() => {

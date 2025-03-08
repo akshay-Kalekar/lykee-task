@@ -3,10 +3,16 @@ import Image from "next/image";
 import React from "react";
 import Link from "next/link";
 
+interface Item {
+    img: string;
+    alt: string;
+    handle: string;
+    title: string;
+}
 const Card = ({
     item,
 }: {
-    item: { img: string; alt: string; handle: string; title: string };
+    item: Item;
 }) => {
     return (
         <Link

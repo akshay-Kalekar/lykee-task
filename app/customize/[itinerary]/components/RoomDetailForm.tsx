@@ -1,7 +1,19 @@
 import { CirclePlus, CircleMinus, X } from "lucide-react";
 import React, { useState, useEffect } from "react";
-
-const NumberInput = ({ value = 0, onIncrease, onDecrease }) => {
+interface NumberInputProps {
+    value: number;
+    onIncrease: () => void;
+    onDecrease: () => void;
+}
+enum Fields {
+    Adult = "adult",
+    Child = "child",
+}
+const NumberInput = ({
+    value = 0,
+    onIncrease,
+    onDecrease,
+}: NumberInputProps) => {
     return (
         <div className='flex items-center md:gap-4'>
             <button
@@ -21,55 +33,78 @@ const NumberInput = ({ value = 0, onIncrease, onDecrease }) => {
         </div>
     );
 };
-
+interface Companion {
+    adult: number;
+    child: number;
+}
+interface ItineraryAnswerData {
+    Location: string;
+    Duration: string;
+    Companion: Companion[];
+}
+interface RoomDetailFormProps {
+    open: boolean;
+    setShowRoomConfigModal: React.Dispatch<React.SetStateAction<boolean>>;
+    setShowCongratulationModal: React.Dispatch<React.SetStateAction<boolean>>;
+    itineraryAnswerData: ItineraryAnswerData;
+    setItineraryAnswerData: React.Dispatch<
+        React.SetStateAction<ItineraryAnswerData>
+    >;
+}
 const RoomDetailForm = ({
     open,
     setShowRoomConfigModal,
     setShowCongratulationModal,
+    itineraryAnswerData,
     setItineraryAnswerData,
-}) => {
-    const [room, setRoom] = useState([]);
-
+}: RoomDetailFormProps) => {
     useEffect(() => {
         setItineraryAnswerData((prev) => ({
             ...prev,
-            Companion: room,
+            Companion: itineraryAnswerData.Companion,
         }));
-    }, [room, setItineraryAnswerData]);
-
-    const handleIncrease = (index, field) => {
-        setRoom((prev) =>
-            prev.map((r, i) =>
+    }, [itineraryAnswerData.Companion, setItineraryAnswerData]);
+    const handleIncrease = (index: number, field: Fields) => {
+        setItineraryAnswerData((prev) => ({
+            ...prev,
+            Companion: prev.Companion.map((r, i) =>
                 i === index ? { ...r, [field]: r[field] + 1 } : r
-            )
-        );
+            ),
+        }));
     };
-
-    const handleDecrease = (index, field) => {
-        setRoom((prev) =>
-            prev.map((r, i) =>
+    const handleDecrease = (index: number, field: Fields) => {
+        setItineraryAnswerData((prev) => ({
+            ...prev,
+            Companion: prev.Companion.map((r, i) =>
                 i === index && r[field] > 0
                     ? { ...r, [field]: r[field] - 1 }
                     : r
-            )
-        );
+            ),
+        }));
     };
-
-    const handleDelete = (index) => {
-        setRoom((prev) => prev.filter((_, i) => i !== index));
+    const handleDelete = (index: number) => {
+        setItineraryAnswerData((prev) => ({
+            ...prev,
+            Companion: prev.Companion.filter((_, i) => i !== index),
+        }));
     };
-
+    const handleFamilyConfig = () => {
+        setItineraryAnswerData((prev) => ({
+            ...prev,
+            Companion: [{ adult: 2, child: 2 }],
+        }));
+    };
     if (!open) return null;
     return (
         <div className='fixed inset-0 z-50 flex justify-center items-center bg-black/50'>
-            <div className='w-3/4 md:w-1/2 bg-white p-6 rounded-lg border-2 shadow-xl max-h-160 overflow-y-auto'>
-                <h1 className='text-lg md: md:text-3xl py-4 font-extrabold'>
+            <div className='w-3/4 md:w-1/2 bg-white p-6 rounded-sm border-2 shadow-xl max-h-160 overflow-y-auto'>
+                <h1 className='text-lg md:text-3xl py-4 font-extrabold'>
                     Choose Your Room Configuration
                 </h1>
-                {room.map((r, i) => (
+                {itineraryAnswerData.Companion.map((r, i) => (
                     <div
                         key={i}
-                        className='mb-4 p-6 border rounded-lg relative bg-gray-100 shadow-sm'
+                        className='mb-4 p-6 border rounded-sm relative bg-gray-100 shadow-sm'
                     >
                         <div className='flex justify-between items-center text-lg md:text-2xl font-extrabold text-gray-800 mb-4'>
                             <label htmlFor='room'>Room {i + 1}</label>
@@ -78,27 +113,43 @@ const RoomDetailForm = ({
                                 className='cursor-pointer text-red-500 w-6 h-6'
                             />
                         </div>
-                        <div className='flex justify-between items-center text-sm md:text-sm md: font-light mb-2'>
-                            <label htmlFor='adult' >Adult</label>
+                        <div className='flex justify-between items-center text-sm md:font-light mb-2'>
+                            <label htmlFor='adult'>Adult</label>
                             <NumberInput
                                 value={r.adult}
-                                onIncrease={() => handleIncrease(i, "adult")}
-                                onDecrease={() => handleDecrease(i, "adult")}
+                                onIncrease={() =>
+                                    handleIncrease(i, Fields.Adult)
+                                }
+                                onDecrease={() =>
+                                    handleDecrease(i, Fields.Adult)
+                                }
                             />
                         </div>
-                        <div className='flex justify-between items-center text-sm md:text-sm md: font-light'>
+                        <div className='flex justify-between items-center text-sm md:font-light'>
                             <label htmlFor='child'>Child</label>
                             <NumberInput
                                 value={r.child}
-                                onIncrease={() => handleIncrease(i, "child")}
-                                onDecrease={() => handleDecrease(i, "child")}
+                                onIncrease={() =>
+                                    handleIncrease(i, Fields.Child)
+                                }
+                                onDecrease={() =>
+                                    handleDecrease(i, Fields.Child)
+                                }
                             />
                         </div>
                     </div>
                 ))}
                 <div
-                    className='flex justify-center items-center gap-4 bg-white/80 shadow-2xl border-2 hover:bg-white text-black p-3 rounded-lg cursor-pointer transition'
-                    onClick={() => setRoom([...room, { adult: 1, child: 0 }])}
+                    className='flex justify-center items-center gap-4 bg-white/80 shadow-2xl border-2 hover:bg-white text-black p-3 rounded-sm cursor-pointer transition'
+                    onClick={() =>
+                        setItineraryAnswerData((prev) => ({
+                            ...prev,
+                            Companion: [
+                                ...prev.Companion,
+                                { adult: 1, child: 0 },
+                            ],
+                        }))
+                    }
                 >
                     <CirclePlus className='w-6 h-6' /> Add new Room
                 </div>
@@ -123,5 +174,4 @@ const RoomDetailForm = ({
         </div>
     );
 };
-
 export default RoomDetailForm;

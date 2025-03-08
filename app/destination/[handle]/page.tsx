@@ -3,12 +3,11 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import TripCard from "./components/TripCard";
-import DisplayCard from "./components/DisplayCard";
 import { use } from "react";
 import { Phone } from "lucide-react";
 import Link from "next/link";
-export default function Destination({ params }) {
-    const { handle } = use(params);
+export default function Destination({ params }: any) {
+    const { handle }:{handle:string} = use(params);
     const [trips, setTrips] = useState([]);
 
     useEffect(() => {
@@ -31,7 +30,7 @@ export default function Destination({ params }) {
 
     return (
         <>
-            <div className='flex flex-col gap-4 p-4 justify-center items-center mt-20'>
+            <div className='flex flex-col gap-4 p-4  pt-20 justify-items-start items-center h-screen'>
                 <h1 className="text-4xl">
                     {handle.charAt(0).toUpperCase() + handle.slice(1)}
                 </h1>
@@ -39,15 +38,6 @@ export default function Destination({ params }) {
                 <div className='flex flex-wrap gap-10 justify-center items-center'>
                     {trips.map((trip, index) => (
                         <TripCard key={index} trip={trip} i={index} />
-                    ))}
-                    {trips.map((trip, index) => (
-                        <TripCard key={index} trip={trip} />
-                    ))}
-                    {trips.map((trip, index) => (
-                        <TripCard key={index} trip={trip} />
-                    ))}
-                    {trips.map((trip, index) => (
-                        <TripCard key={index} trip={trip} />
                     ))}
                 </div>
             </div>

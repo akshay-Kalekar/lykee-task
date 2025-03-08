@@ -3,11 +3,16 @@ import React, { useEffect, useState } from "react";
 import { use } from "react";
 import Card from "./components/Card";
 import { Progress } from "@/components/ui/progress";
-import { Dialog } from "@radix-ui/react-dialog";
 import RoomDetailForm from "./components/RoomDetailForm";
 import SuccessModal from "./components/SuccessModal";
-const Itinerary = ({ params }) => {
-    const { itinerary } = use(params);
+
+interface ItineraryProps {
+    params: {
+        itinerary: string;
+    };
+}
+export default function Itinerary({ params }: any) {
+    const { itinerary }: { itinerary: string } = use(params);
     const [progress, setProgress] = React.useState(0);
     const [showRoomConfigModal, setShowRoomConfigModal] = useState(false);
     const [showCongratulationModal, setShowCongratulationModal] =
@@ -18,14 +23,12 @@ const Itinerary = ({ params }) => {
         Companion: [{ adult: 1, child: 0 }],
     });
     useEffect(() => {
-        function fetchTrips() {
-            const response = fetch(
+        async function fetchTrips() {
+            const response = await fetch(
                 `https://json-data-1wm2.onrender.com/destination/${params}`
             );
-            const data = response.trips;
-            console.log(data);
-
-            setTripsAvailable(data);
+            const data = await response.json();
+            setTripsAvailable(data.trips);
         }
     }, []);
     const [tripsAvailable, setTripsAvailable] = useState([]);
@@ -143,7 +146,7 @@ const Itinerary = ({ params }) => {
 
         if (currectQuestion < itineraryQuestionariData.length - 1) {
             setCurrectQuestion((prev) => prev + 1);
-        } 
+        }
         setProgress(
             ((currectQuestion + 1) / itineraryQuestionariData.length) * 100
         );
@@ -155,6 +158,7 @@ const Itinerary = ({ params }) => {
                 <RoomDetailForm
                     open={showRoomConfigModal}
                     setShowRoomConfigModal={setShowRoomConfigModal}
+                    itineraryAnswerData={itineraryAnswerData}
                     setItineraryAnswerData={setItineraryAnswerData}
                     setShowCongratulationModal={setShowCongratulationModal}
                 />
@@ -171,31 +175,22 @@ const Itinerary = ({ params }) => {
                         <div className='flex flex-wrap justify-center gap-4'>
                             {itineraryQuestionariData[
                                 currectQuestion
-                            ].Options.map((option, index) => (
+                            ].Options.map((item, index) => (
                                 <div
                                     key={index}
                                     className='flex flex-col items-center'
                                 >
-                                    {index % 2 === 0 && (
-                                        <div className='flex gap-4'>
-                                            {itineraryQuestionariData[
-                                                currectQuestion
-                                            ].Options.slice(
-                                                index,
-                                                index + 2
-                                            ).map((subOption, subIndex) => (
                                                 <Card
-                                                    key={subIndex}
-                                                    item={subOption}
+                                                    key={index}
+                                                    item={item}
                                                     onClick={() =>
                                                         handleCardClick(
-                                                            index + subIndex
+                                                           index
                                                         )
                                                     }
                                                 />
-                                            ))}
-                                        </div>
-                                    )}
+                                           
+                                    
                                 </div>
                             ))}
                         </div>
@@ -205,6 +200,4 @@ const Itinerary = ({ params }) => {
             <div></div>
         </>
     );
-};
-
-export default Itinerary;
+}

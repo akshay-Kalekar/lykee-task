@@ -5,15 +5,21 @@ const Navbar = () => {
     return (
         <div className='fixed top-0 left-0 w-full z-50 px-4 py-2 flex justify-between text-xs md:text-lg items-center text-white bg-black/50 backdrop-blur-md'>
             {/* Logo */}
-            <Link href={"/"} className=' md:w-56'>
+            <Link href={"/"} className=' md:w-56' passHref>
                 LYKKE.Travel
             </Link>
 
             {/* Navigation Links */}
             <div className='hidden md:flex gap-16'>
-                <Link href='/'>Home</Link>
-                <Link href='/customize'>Plan Trip</Link>
-                <Link href='get-in-touch'>Contact Us</Link>
+                <Link href='/' passHref>
+                    Home
+                </Link>
+                <Link href='/customize' passHref>
+                    Plan Trip
+                </Link>
+                <Link href='/get-in-touch' passHref>
+                    Contact Us
+                </Link>
             </div>
 
             {/* Buttons */}
