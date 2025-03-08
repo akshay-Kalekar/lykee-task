@@ -28,7 +28,7 @@ const RoomDetailForm = ({
     setShowCongratulationModal,
     setItineraryAnswerData,
 }) => {
-    const [room, setRoom] = useState([{ adult: 1, child: 0 }]);
+    const [room, setRoom] = useState([]);
 
     useEffect(() => {
         setItineraryAnswerData((prev) => ({

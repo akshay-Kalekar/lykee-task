@@ -15,7 +15,7 @@ const Card = ({
         >
             <Image
                 src={item.img}
-                alt={item.alt}
+                alt={item.alt || "Card Image"}
                 layout='fill' // Ensure it fills the parent container
                 objectFit='cover' // Cover the div without stretching
                 className='absolute inset-0'
@@ -24,13 +24,13 @@ const Card = ({
             {/* Title Overlay - Appears on Hover */}
             <div className='relative z-10 h-full w-full opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
                 <div className='flex w-full h-full justify-center items-center bg-white/70'>
-                    <div className='text-4xl text-black'>{item.title}</div>
+                    <div className='text-4xl text-black'> Explore</div>
                 </div>
             </div>
 
             {/* Explore Button - Disappears on Hover */}
             <div className='absolute top-4 left-4 z-10 bg-white/80 hover:bg-black/80 hover:text-white rounded-4xl px-2 py-1 text-xs opacity-100 group-hover:opacity-0 transition-opacity duration-300'>
-                Explore
+                {item.title}
             </div>
         </Link>
     );

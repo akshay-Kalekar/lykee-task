@@ -48,7 +48,7 @@ const SuccessModal = ({ open, itineraryAnswerData, destination }) => {
                                     <label htmlFor='adult'>
                                         Adult: {r.adult}
                                     </label>
-                                    <span className='mx-2'>|</span>
+                                    <span className='mx-4'> | </span>
                                     <label htmlFor='child'>
                                         Child: {r.child}
                                     </label>
@@ -58,12 +58,7 @@ const SuccessModal = ({ open, itineraryAnswerData, destination }) => {
                     </div>
                 </div>
                 <div className='flex flex-col gap-4 mt-6'>
-                    <Link
-                        href={`/destination/${destination}`}
-                        className='bg-black text-white text-lg font-medium rounded-lg px-4 py-3 mt-2 w-full text-center transition duration-300 hover:bg-gray-800'
-                    >
-                        Download Itinerary
-                    </Link>
+               
                     <Link
                         href={`/get-in-touch`}
                         className='bg-black text-white text-lg font-medium rounded-lg px-4 py-3 mt-2 w-full text-center transition duration-300 hover:bg-gray-800'
