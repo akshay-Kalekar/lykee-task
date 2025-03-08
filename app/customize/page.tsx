@@ -44,7 +44,11 @@ export default function Customize() {
                     <div className='px-4'>
                         <ul className='h-fit flex flex-col gap-4 max-h-80 md:max-h-60 overflow-y-auto'>
                             {destinations
-                                .filter((d) =>d.toLowerCase().includes(search.toLowerCase()))
+                                .filter((d) =>
+                                    d
+                                        .toLowerCase()
+                                        .includes(search.toLowerCase())
+                                )
                                 .map((dest) => (
                                     <Link
                                         href={`/customize/${dest}`}

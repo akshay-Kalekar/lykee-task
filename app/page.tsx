@@ -19,7 +19,7 @@ export default function Home() {
             fetch("https://json-data-1wm2.onrender.com/featured-destination")
                 .then((res) => res.json())
                 .then((data) => setDestinations(data.destination)),
-        ]).then(() =>setLoading(false));
+        ]).then(() => setLoading(false));
     }, []);
 
     return (
@@ -41,3 +41,4 @@ export default function Home() {
         </div>
     );
 }
+/* Created By Akshay Ajay Kalekar */
