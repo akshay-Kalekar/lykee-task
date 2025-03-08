@@ -14,7 +14,7 @@ const TripCard = ({ trip, i }: TripCardProps) => {
     return (
         <div className='h-60 w-2xs md:h-60 md:w-sm border-2 overflow-hidden shadow-lg p-4 md:p-6 bg-white hover:scale-105 transition-all'>
             <div className='flex justify-between w-full'>
-                <h2 className='text-lg md:text-xl font-semibold mb-2 overflow-clip whitespace-nowrap  text-ellipsis'>
+                <h2 className='text-sm md:text-xl font-semibold mb-2 overflow-clip whitespace-nowrap  text-ellipsis'>
                     {trip["trip-name"]}
                 </h2>
                 {i < 1 ? (
@@ -26,8 +26,8 @@ const TripCard = ({ trip, i }: TripCardProps) => {
                 )}
             </div>
             <div className='h-24'>
-                <div className='flex flex-wrap gap-2  '>
-                    {trip.amenities.slice(0, 5).map((amenity, index) => (
+                <div className='flex flex-wrap gap-2 h-20 overflow-scroll  '>
+                    {trip.amenities.map((amenity, index) => (
                         <div
                             key={index}
                             className='bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-xs h-fit'
