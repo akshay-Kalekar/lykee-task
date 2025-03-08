@@ -25,8 +25,8 @@ const TripCard = ({ trip, i }: TripCardProps) => {
                     <div className='h-6'></div>
                 )}
             </div>
-            <div className='h-24'>
-                <div className='flex flex-wrap gap-2 h-20 overflow-scroll  '>
+            <div className='h-28 md:h-24'>
+                <div className='flex flex-wrap gap-2    '>
                     {trip.amenities.map((amenity, index) => (
                         <div
                             key={index}
