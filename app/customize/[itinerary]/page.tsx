@@ -13,9 +13,9 @@ const Itinerary = ({ params }) => {
     const [showCongratulationModal, setShowCongratulationModal] =
         useState(false);
     const [itineraryAnswerData, setItineraryAnswerData] = useState({
+        Location: itinerary,
         Duration: "",
-        Companion: [{ Adults: 1, Children: 0 }],
-        Trips: [],
+        Companion: [{ adult: 1, child: 0 }],
     });
     useEffect(() => {
         function fetchTrips() {
@@ -93,8 +93,9 @@ const Itinerary = ({ params }) => {
             ) {
                 setItineraryAnswerData((prev) => ({
                     ...prev,
-                    Companion: [{ Adults: 1, Children: 0 }],
+                    Companion: [{ adult: 1, child: 0 }],
                 }));
+                setShowCongratulationModal(true);
             }
             if (
                 itineraryQuestionariData[currectQuestion].Options[index]
@@ -102,8 +103,9 @@ const Itinerary = ({ params }) => {
             ) {
                 setItineraryAnswerData((prev) => ({
                     ...prev,
-                    Companion: [{ Adults: 2, Children: 0 }],
+                    Companion: [{ adult: 2, child: 0 }],
                 }));
+                setShowCongratulationModal(true);
             }
             if (
                 itineraryQuestionariData[currectQuestion].Options[index]
@@ -112,7 +114,7 @@ const Itinerary = ({ params }) => {
                 //OpenModal fill number of room and adult an childern
                 setItineraryAnswerData((prev) => ({
                     ...prev,
-                    Companion: [{ Adults: 2, Children: 2 }],
+                    Companion: [{ adult: 2, child: 2 }],
                 }));
                 setShowRoomConfigModal(true);
             }
@@ -122,7 +124,7 @@ const Itinerary = ({ params }) => {
             ) {
                 setItineraryAnswerData((prev) => ({
                     ...prev,
-                    Companion: [{ Adults: 4, Children: 0 }],
+                    Companion: [{ adult: 4, child: 0 }],
                 }));
                 setShowRoomConfigModal(true);
             }
@@ -155,11 +157,12 @@ const Itinerary = ({ params }) => {
                 <RoomDetailForm
                     open={showRoomConfigModal}
                     setShowRoomConfigModal={setShowRoomConfigModal}
+                    setItineraryAnswerData={setItineraryAnswerData}
                     setShowCongratulationModal={setShowCongratulationModal}
                 />
                 <SuccessModal
                     open={showCongratulationModal}
-                    roomData={itineraryAnswerData}
+                    itineraryAnswerData={itineraryAnswerData}
                 />
                 <Progress value={progress} className='w-[60%] mt-8' />
                 <div className='flex flex-col gap-4'>
