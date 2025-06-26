@@ -6,7 +6,7 @@ const Navbar = () => {
         <div className='fixed top-0 left-0 w-full z-50 px-4 py-2 flex justify-between text-xs md:text-lg items-center text-white bg-black/50 backdrop-blur-md'>
             {/* Logo */}
             <Link href={"/"} className=' md:w-56' passHref>
-                LYKKE.Travel
+                Travel Plan
             </Link>
 
             {/* Navigation Links */}
