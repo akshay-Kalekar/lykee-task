@@ -1,7 +1,7 @@
 # Next.js Travel Website
 
 ## 🚀 Overview
-This is a **Next.js** travel website built as part of a Frontend Intern Assignment. It includes multiple sections such as Home, Customize, Destination, and Contact, utilizing APIs for fetching travel data and providing a seamless itinerary journey experience.
+This is a **Next.js** travel website built. It includes multiple sections such as Home, Customize, Destination, and Contact, utilizing APIs for fetching travel data and providing a seamless itinerary journey experience.
 
 ## 🎯 Features & Functionality
 
